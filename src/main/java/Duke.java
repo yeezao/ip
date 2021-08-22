@@ -10,12 +10,12 @@ public class Duke {
 
     private static void userCommands() {
 
-        boolean continueProgram = true;
+        boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
         Task[] storage = new Task[100];
         int nextAdd = 0;
 
-        while (continueProgram) {
+        while (isProgramRunning) {
             System.out.print("Enter your command here: ");
             String input = scanner.nextLine();
             if (input.contains("done")) {
@@ -26,7 +26,7 @@ public class Duke {
                     System.out.println("Congrats! You've completed this task: [X] " + storage[num].getTaskDesc());
                 }
             } else if (input.equals("bye")) {
-                continueProgram = false;
+                isProgramRunning = false;
             } else if (input.equals("list")) {
                 for (int i = 0; i < nextAdd; i++) {
                     String done = storage[i].isPending() ? "[ ]" : "[X]";
@@ -63,7 +63,7 @@ public class Duke {
 
     public static class Task {
 
-        boolean pending = true;
+        boolean isPending = true;
         String taskDesc;
 
         public Task() {
@@ -75,11 +75,11 @@ public class Duke {
         }
 
         public boolean isPending() {
-            return pending;
+            return isPending;
         }
 
-        public void setPending(boolean pending) {
-            this.pending = pending;
+        public void setPending(boolean isPending) {
+            this.isPending = isPending;
         }
 
         public String getTaskDesc() {
@@ -91,9 +91,7 @@ public class Duke {
         }
 
         public void markAsDone() {
-            this.pending = false;
+            this.isPending = false;
         }
-
-
     }
 }
