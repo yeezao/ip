@@ -9,16 +9,25 @@ public class Duke {
     }
 
     private static void userCommands() {
+
         boolean continueProgram = true;
         Scanner scanner = new Scanner(System.in);
+        String[] storage = new String[100];
+        int nextAdd = 0;
 
         while (continueProgram) {
             System.out.print("Enter your command here: ");
             String input = scanner.nextLine();
-            if (!input.equals("bye")) {
-                System.out.println("You entered: " + input);
-            } else {
+            if (input.equals("bye")) {
                 continueProgram = false;
+            } else if (input.equals("list")) {
+                for (int i = 0; i < nextAdd; i++) {
+                    System.out.println((i + 1) + ": " + storage[i]);
+                }
+            } else {
+                storage[nextAdd] = input;
+                System.out.println("Added: " + input);
+                nextAdd++;
             }
         }
     }
