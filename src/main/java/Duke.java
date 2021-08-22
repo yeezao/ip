@@ -12,20 +12,29 @@ public class Duke {
 
         boolean continueProgram = true;
         Scanner scanner = new Scanner(System.in);
-        String[] storage = new String[100];
+        Task[] storage = new Task[100];
         int nextAdd = 0;
 
         while (continueProgram) {
             System.out.print("Enter your command here: ");
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
+            if (input.contains("done")) {
+                String[] words = input.split(" ");
+                for (int i = 1; i < words.length; i++) {
+                    int num = Integer.parseInt(words[i]) - 1;
+                    storage[num].markAsDone();
+                    System.out.println("Congrats! You've completed this task: [X] " + storage[num].getTaskDesc());
+                }
+            } else if (input.equals("bye")) {
                 continueProgram = false;
             } else if (input.equals("list")) {
                 for (int i = 0; i < nextAdd; i++) {
-                    System.out.println((i + 1) + ": " + storage[i]);
+                    String done = storage[i].isPending() ? "[ ]" : "[X]";
+                    System.out.println((i + 1) + ": " + done + " " + storage[i].getTaskDesc());
                 }
             } else {
-                storage[nextAdd] = input;
+                Task temp = new Task(input);
+                storage[nextAdd] = temp;
                 System.out.println("Added: " + input);
                 nextAdd++;
             }
@@ -48,6 +57,42 @@ public class Duke {
 
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("-------------------------------------");
+
+
+    }
+
+    public static class Task {
+
+        boolean pending = true;
+        String taskDesc;
+
+        public Task() {
+            //empty constructor
+        }
+
+        public Task(String taskDesc) {
+            this.taskDesc = taskDesc;
+        }
+
+        public boolean isPending() {
+            return pending;
+        }
+
+        public void setPending(boolean pending) {
+            this.pending = pending;
+        }
+
+        public String getTaskDesc() {
+            return taskDesc;
+        }
+
+        public void setTaskDesc(String taskDesc) {
+            this.taskDesc = taskDesc;
+        }
+
+        public void markAsDone() {
+            this.pending = false;
+        }
 
 
     }
