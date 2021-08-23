@@ -12,7 +12,7 @@ public class Duke {
 
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
-        Task[] storage = new Task[100];
+        Task[] tasks = new Task[100];
         int nextAdd = 0;
 
         while (isProgramRunning) {
@@ -22,19 +22,20 @@ public class Duke {
                 String[] words = input.split(" ");
                 for (int i = 1; i < words.length; i++) {
                     int num = Integer.parseInt(words[i]) - 1;
-                    storage[num].markAsDone();
-                    System.out.println("Congrats! You've completed this task: [X] " + storage[num].getTaskDesc());
+                    tasks[num].markAsDone();
+                    System.out.println("Congrats! You've completed this task: [X] "
+                            + tasks[num].getTaskDesc());
                 }
             } else if (input.equals("bye")) {
                 isProgramRunning = false;
             } else if (input.equals("list")) {
                 for (int i = 0; i < nextAdd; i++) {
-                    String done = storage[i].isPending() ? "[ ]" : "[X]";
-                    System.out.println((i + 1) + ": " + done + " " + storage[i].getTaskDesc());
+                    String done = tasks[i].isPending() ? "[ ]" : "[X]";
+                    System.out.println((i + 1) + ": " + done + " " + tasks[i].getTaskDesc());
                 }
             } else {
                 Task temp = new Task(input);
-                storage[nextAdd] = temp;
+                tasks[nextAdd] = temp;
                 System.out.println("Added: " + input);
                 nextAdd++;
             }
