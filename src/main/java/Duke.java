@@ -1,6 +1,11 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
+
+    private static final String SOMETHING_WRONG = "Sorry, something went wrong. ";
+
+    private static int nextAdd = 0;
 
     private static void firstGreet() {
         System.out.println("Hello! I'm Duke!");
@@ -8,36 +13,84 @@ public class Duke {
         System.out.println("-------------------------------------");
     }
 
+    private static String createRemainingString(String[] inputWords) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < inputWords.length; i++) {
+            sb.append(inputWords[i]);
+            if (i < inputWords.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private static void makeTaskDone(String[] inputWords, Task[] tasks) {
+        for (int i = 1; i < inputWords.length; i++) {
+            try {
+                int num = Integer.parseInt(inputWords[i]) - 1;
+                tasks[num].markAsDone();
+                System.out.println("Congrats! You've completed this task: [X] "
+                        + tasks[num].getTaskDesc());
+            } catch (NumberFormatException e) {
+                System.out.println(SOMETHING_WRONG +
+                        "Please ensure that you have entered the index of the task(s) to be marked as done");
+                break;
+            }
+        }
+    }
+
+    private static void listAllTasks(Task[] tasks) {
+        for (int i = 0; i < nextAdd; i++) {
+//            StringBuilder sb = new StringBuilder();
+            String done = tasks[i].isPending() ? "[ ]" : "[X]";
+            System.out.println((i + 1) + ": " + tasks[i].getType() + done + " "
+                    + tasks[i].getTaskDesc() + " " + tasks[i].getAdditionalInfo());
+        }
+    }
+
+
     private static void userCommands() {
 
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
-        int nextAdd = 0;
 
         while (isProgramRunning) {
             System.out.print("Enter your command here: ");
             String input = scanner.nextLine();
-            if (input.contains("done")) {
-                String[] words = input.split(" ");
-                for (int i = 1; i < words.length; i++) {
-                    int num = Integer.parseInt(words[i]) - 1;
-                    tasks[num].markAsDone();
-                    System.out.println("Congrats! You've completed this task: [X] "
-                            + tasks[num].getTaskDesc());
-                }
+            if (input.isEmpty()) {
+                //TODO: print something wrong
+            } else if (input.equals("help")) {
+                //TODO: print help statement
             } else if (input.equals("bye")) {
                 isProgramRunning = false;
             } else if (input.equals("list")) {
-                for (int i = 0; i < nextAdd; i++) {
-                    String done = tasks[i].isPending() ? "[ ]" : "[X]";
-                    System.out.println((i + 1) + ": " + done + " " + tasks[i].getTaskDesc());
-                }
+                listAllTasks(tasks);
             } else {
-                Task temp = new Task(input);
-                tasks[nextAdd] = temp;
-                System.out.println("Added: " + input);
-                nextAdd++;
+                String[] inputWords = input.split(" ");
+                if (inputWords[0].equals("done")) {
+                    makeTaskDone(inputWords, tasks);
+                } else {
+                    if (inputWords[0].equals("deadline")) {
+                        int num = Integer.parseInt(inputWords[1]) - 1;
+                        Deadline temp = new Deadline(tasks[num].getTaskDesc());
+                        String deadlineString = createRemainingString(inputWords);
+                        temp.setByDateTime(deadlineString);
+                        tasks[num] = temp;
+                        System.out.println("Deadline set: " + deadlineString);
+                    } else if (inputWords[0].equals("event")) {
+                        int num = Integer.parseInt(inputWords[1]) - 1;
+                        Event temp = new Event(tasks[num].getTaskDesc());
+                        temp.setAtDateTime(createRemainingString(inputWords));
+                        tasks[num] = temp;
+                        System.out.println("Event set");
+                    } else {
+                        Todo temp = new Todo(input);
+                        tasks[nextAdd] = temp;
+                        System.out.println("Added: " + input);
+                        nextAdd++;
+                    }
+                }
             }
         }
     }
@@ -62,37 +115,5 @@ public class Duke {
 
     }
 
-    public static class Task {
 
-        boolean isPending = true;
-        String taskDesc;
-
-        public Task() {
-            //empty constructor
-        }
-
-        public Task(String taskDesc) {
-            this.taskDesc = taskDesc;
-        }
-
-        public boolean isPending() {
-            return isPending;
-        }
-
-        public void setPending(boolean isPending) {
-            this.isPending = isPending;
-        }
-
-        public String getTaskDesc() {
-            return taskDesc;
-        }
-
-        public void setTaskDesc(String taskDesc) {
-            this.taskDesc = taskDesc;
-        }
-
-        public void markAsDone() {
-            this.isPending = false;
-        }
-    }
 }
