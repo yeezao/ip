@@ -52,6 +52,35 @@ public class Duke {
         }
     }
 
+    private static void tasksAddOrModify(String input, Task[] tasks) {
+
+        String[] inputWords = input.split(" ");
+        if (inputWords[0].equals("done")) {
+            makeTaskDone(inputWords, tasks);
+        } else {
+            if (inputWords[0].equals("deadline")) {
+                int num = Integer.parseInt(inputWords[1]) - 1;
+                Deadline temp = new Deadline(tasks[num].getTaskDesc());
+                String deadlineString = createRemainingString(inputWords);
+                temp.setByDateTime(deadlineString);
+                tasks[num] = temp;
+                System.out.println("Deadline set: " + deadlineString);
+            } else if (inputWords[0].equals("event")) {
+                int num = Integer.parseInt(inputWords[1]) - 1;
+                Event temp = new Event(tasks[num].getTaskDesc());
+                temp.setAtDateTime(createRemainingString(inputWords));
+                tasks[num] = temp;
+                System.out.println("Event set");
+            } else {
+                Todo temp = new Todo(input);
+                tasks[nextAdd] = temp;
+                System.out.println("Added: " + input);
+                nextAdd++;
+            }
+        }
+
+    }
+
 
     private static void userCommands() {
 
@@ -71,30 +100,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 listAllTasks(tasks);
             } else {
-                String[] inputWords = input.split(" ");
-                if (inputWords[0].equals("done")) {
-                    makeTaskDone(inputWords, tasks);
-                } else {
-                    if (inputWords[0].equals("deadline")) {
-                        int num = Integer.parseInt(inputWords[1]) - 1;
-                        Deadline temp = new Deadline(tasks[num].getTaskDesc());
-                        String deadlineString = createRemainingString(inputWords);
-                        temp.setByDateTime(deadlineString);
-                        tasks[num] = temp;
-                        System.out.println("Deadline set: " + deadlineString);
-                    } else if (inputWords[0].equals("event")) {
-                        int num = Integer.parseInt(inputWords[1]) - 1;
-                        Event temp = new Event(tasks[num].getTaskDesc());
-                        temp.setAtDateTime(createRemainingString(inputWords));
-                        tasks[num] = temp;
-                        System.out.println("Event set");
-                    } else {
-                        Todo temp = new Todo(input);
-                        tasks[nextAdd] = temp;
-                        System.out.println("Added: " + input);
-                        nextAdd++;
-                    }
-                }
+                tasksAddOrModify(input, tasks);
             }
         }
     }
