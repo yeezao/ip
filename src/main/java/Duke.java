@@ -41,10 +41,14 @@ public class Duke {
 
     private static void listAllTasks(Task[] tasks) {
         for (int i = 0; i < nextAdd; i++) {
-//            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             String done = tasks[i].isPending() ? "[ ]" : "[X]";
-            System.out.println((i + 1) + ": " + tasks[i].getType() + done + " "
-                    + tasks[i].getTaskDesc() + " " + tasks[i].getAdditionalInfo());
+            sb.append(i + 1).append(": ").append(tasks[i].getType())
+                    .append(done).append(" ").append(tasks[i].getTaskDesc());
+            if (!tasks[i].getAdditionalInfo().isEmpty()) {
+                sb.append(" ").append(tasks[i].getAdditionalInfo());
+            }
+            System.out.println(sb);
         }
     }
 

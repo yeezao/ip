@@ -1,0 +1,12 @@
+hello
+byebye
+sup
+list
+deadline 1 today
+event 2 tomorrow
+list
+done 1 2
+list
+done 3
+list
+bye

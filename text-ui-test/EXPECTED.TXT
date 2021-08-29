@@ -5,3 +5,29 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+---------------------
+Hello! I'm Duke!
+What can I do for you?
+-------------------------------------
+Enter your command here: Added: hello
+Enter your command here: Added: byebye
+Enter your command here: Added: sup
+Enter your command here: 1: [T][ ] hello
+2: [T][ ] byebye
+3: [T][ ] sup
+Enter your command here: Deadline set: today
+Enter your command here: Event set
+Enter your command here: 1: [D][ ] hello (by: today)
+2: [E][ ] byebye (at: tomorrow)
+3: [T][ ] sup
+Enter your command here: Congrats! You've completed this task: [X] hello
+Congrats! You've completed this task: [X] byebye
+Enter your command here: 1: [D][X] hello (by: today)
+2: [E][X] byebye (at: tomorrow)
+3: [T][ ] sup
+Enter your command here: Congrats! You've completed this task: [X] sup
+Enter your command here: 1: [D][X] hello (by: today)
+2: [E][X] byebye (at: tomorrow)
+3: [T][X] sup
+Enter your command here: Bye. Hope to see you again soon!
+-------------------------------------
