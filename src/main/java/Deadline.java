@@ -1,6 +1,6 @@
 public class Deadline extends Task {
 
-    String byDateTime;
+    private String byDateTime;
 
     public Deadline(String description) {
         super(description);
