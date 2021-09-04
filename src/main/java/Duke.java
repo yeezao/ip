@@ -78,20 +78,30 @@ public class Duke {
             if (inputWords[0].equals("deadline")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Deadline temp = new Deadline(tasks[num].getTaskDesc());
+                    Deadline deadline = new Deadline(tasks[num].getTaskDesc());
                     String deadlineString = createRemainingString(inputWords);
-                    temp.setByDateTime(deadlineString);
-                    tasks[num] = temp;
-                    System.out.println("Deadline set: " + deadlineString);
+                    if (deadlineString.isEmpty()) {
+                        System.out.println(SOMETHING_WRONG + "Please enter your deadline information.");
+                    } else {
+                        deadline.setByDateTime(deadlineString);
+                        tasks[num] = deadline;
+                        System.out.println("Deadline set: " + deadlineString);
+                    }
+
                 }
             } else if (inputWords[0].equals("event")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Event temp = new Event(tasks[num].getTaskDesc());
+                    Event event = new Event(tasks[num].getTaskDesc());
                     String eventString = createRemainingString(inputWords);
-                    temp.setAtDateTime(eventString);
-                    tasks[num] = temp;
-                    System.out.println("Event set at: " + eventString);
+                    if (eventString.isEmpty()) {
+                        System.out.println(SOMETHING_WRONG + "Please enter your event information.");
+                    } else {
+                        event.setAtDateTime(eventString);
+                        tasks[num] = event;
+                        System.out.println("Event set at: " + eventString);
+                    }
+
                 }
             } else {
                 Todo temp = new Todo(input);
