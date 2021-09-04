@@ -1,3 +1,5 @@
+package Standard;
+
 public class StandardMethods {
 
     public static void printHelpMessage() {

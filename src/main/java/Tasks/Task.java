@@ -1,3 +1,5 @@
+package Tasks;
+
 public abstract class Task {
 
     private boolean isPending = true;

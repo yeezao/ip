@@ -1,3 +1,5 @@
+package Standard;
+
 public class DukeExceptions extends Exception {
 
     //TODO: add exceptions
