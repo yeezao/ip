@@ -32,7 +32,7 @@ public class Duke {
                 tasks[num].markAsDone();
                 System.out.println("Congrats! You've completed this task: [X] "
                         + tasks[num].getTaskDesc());
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println(SOMETHING_WRONG +
                         "Please ensure that you have entered the index of the task(s) to be marked as done");
                 break;
