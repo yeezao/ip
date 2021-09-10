@@ -18,8 +18,7 @@ public class StandardMethods {
 
     public static void goodBye() {
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("-------------------------------------");
+        System.out.println("Exiting the program now. Goodbye!");
 
     }
 
