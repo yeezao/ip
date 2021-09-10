@@ -4,6 +4,7 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -29,14 +30,14 @@ public class Duke {
         return sb.toString();
     }
 
-    private static void makeTaskDone(String[] inputWords, Task[] tasks) {
+    private static void makeTaskDone(String[] inputWords, ArrayList<Task> tasks) {
         for (int i = 1; i < inputWords.length; i++) {
             try {
                 int num = Integer.parseInt(inputWords[i]) - 1;
-                tasks[num].markAsDone();
+                tasks.get(num).markAsDone();
                 System.out.println("Congrats! You've completed this task: [X] "
-                        + tasks[num].getTaskDesc());
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        + tasks.get(num).getTaskDesc());
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println(SOMETHING_WRONG +
                         "Please ensure that you have entered the index of the task(s) to be marked as done");
                 break;
@@ -44,14 +45,14 @@ public class Duke {
         }
     }
 
-    private static void listAllTasks(Task[] tasks) {
-        for (int i = 0; i < nextAdd; i++) {
+    private static void listAllTasks(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
             StringBuilder sb = new StringBuilder();
-            String done = tasks[i].isPending() ? "[ ]" : "[X]";
-            sb.append(i + 1).append(": ").append(tasks[i].getType())
-                    .append(done).append(" ").append(tasks[i].getTaskDesc());
-            if (!tasks[i].getAdditionalInfo().isEmpty()) {
-                sb.append(" ").append(tasks[i].getAdditionalInfo());
+            String done = tasks.get(i).isPending() ? "[ ]" : "[X]";
+            sb.append(i + 1).append(": ").append(tasks.get(i).getType())
+                    .append(done).append(" ").append(tasks.get(i).getTaskDesc());
+            if (!tasks.get(i).getAdditionalInfo().isEmpty()) {
+                sb.append(" ").append(tasks.get(i).getAdditionalInfo());
             }
             System.out.println(sb);
         }
@@ -70,11 +71,36 @@ public class Duke {
 
     }
 
-    private static void tasksAddOrModify(String input, Task[] tasks) {
+    private static void deleteTask(String[] inputWords, ArrayList<Task> tasks) {
+
+        for (int i = inputWords.length - 1; i > 0; i--) {
+            try {
+                int num = Integer.parseInt(inputWords[i]) - 1;
+                System.out.println("Task " + (num + 1) + ": "
+                        + tasks.get(num).getTaskDesc() + " has been deleted");
+                if (tasks.size() == 1) {
+                    tasks.clear();
+                } else {
+                    tasks.remove(num);
+                }
+                nextAdd--;
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                System.out.println(e);
+                System.out.println(SOMETHING_WRONG +
+                        "Please ensure that you have entered the index of the task(s) to be marked as done");
+                break;
+            }
+        }
+
+    }
+
+    private static void tasksCRUD(String input, ArrayList<Task> tasks) {
 
         String[] inputWords = input.split(" ");
         if (inputWords[0].equals("done")) {
             makeTaskDone(inputWords, tasks);
+        } else if (inputWords[0].equals("delete")) {
+            deleteTask(inputWords, tasks);
         } else {
 //            if (inputWords.length < 2) {
 //                System.out.println(SOMETHING_WRONG + "Please enter more information after your command.");
@@ -82,37 +108,40 @@ public class Duke {
             if (inputWords[0].equals("deadline")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Deadline temp = new Deadline(tasks[num].getTaskDesc());
+                    Deadline temp = new Deadline(tasks.get(num).getTaskDesc());
                     String deadlineString = createRemainingString(inputWords);
                     temp.setByDateTime(deadlineString);
-                    tasks[num] = temp;
+                    tasks.set(num, temp);
                     System.out.println("Deadline set: " + deadlineString);
                 }
             } else if (inputWords[0].equals("event")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Event temp = new Event(tasks[num].getTaskDesc());
+                    Event temp = new Event(tasks.get(num).getTaskDesc());
                     String eventString = createRemainingString(inputWords);
                     temp.setAtDateTime(eventString);
-                    tasks[num] = temp;
+                    tasks.set(num, temp);
                     System.out.println("Event set at: " + eventString);
                 }
             } else {
-                Todo temp = new Todo(input);
-                tasks[nextAdd] = temp;
-                System.out.println("Added: " + input);
+                Todo todo = new Todo(input);
+                tasks.add(todo);
+//                tasks[nextAdd] = temp;
                 nextAdd++;
+                System.out.println("Added: " + input + ".");
             }
         }
 
     }
 
 
+
+
     private static void userCommands() {
 
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (isProgramRunning) {
             System.out.print("Enter your command here: ");
@@ -127,7 +156,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 listAllTasks(tasks);
             } else {
-                tasksAddOrModify(input, tasks);
+                tasksCRUD(input, tasks);
             }
         }
     }
@@ -146,9 +175,7 @@ public class Duke {
 
         userCommands();
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("-------------------------------------");
-
+        StandardMethods.goodBye();
 
     }
 

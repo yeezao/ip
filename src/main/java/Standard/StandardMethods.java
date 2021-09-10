@@ -16,4 +16,11 @@ public class StandardMethods {
 
     }
 
+    public static void goodBye() {
+
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("-------------------------------------");
+
+    }
+
 }
