@@ -16,4 +16,10 @@ public class StandardMethods {
 
     }
 
+    public static void goodBye() {
+
+        System.out.println("Exiting the program now. Goodbye!");
+
+    }
+
 }
