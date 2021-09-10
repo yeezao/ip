@@ -16,4 +16,8 @@ public class Todo extends Task {
         return super.getAdditionalInfo();
     }
 
+    @Override
+    public String getAdditionalInfoSave() {
+        return super.getAdditionalInfoSave();
+    }
 }

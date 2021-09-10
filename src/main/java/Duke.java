@@ -4,14 +4,21 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     private static final String SOMETHING_WRONG = "Sorry, something went wrong. ";
+    private static final String FILE_PATH = "tasks.txt";
 
     private static int nextAdd = 0;
+
+    private static File file;
 
     private static void firstGreet() {
         System.out.println("Hello! I'm Duke!");
@@ -108,19 +115,19 @@ public class Duke {
             if (inputWords[0].equals("deadline")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Deadline temp = new Deadline(tasks.get(num).getTaskDesc());
+                    Deadline deadline = new Deadline(tasks.get(num).getTaskDesc());
                     String deadlineString = createRemainingString(inputWords);
-                    temp.setByDateTime(deadlineString);
-                    tasks.set(num, temp);
+                    deadline.setByDateTime(deadlineString);
+                    tasks.set(num, deadline);
                     System.out.println("Deadline set: " + deadlineString);
                 }
             } else if (inputWords[0].equals("event")) {
                 int num = extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Event temp = new Event(tasks.get(num).getTaskDesc());
+                    Event event = new Event(tasks.get(num).getTaskDesc());
                     String eventString = createRemainingString(inputWords);
-                    temp.setAtDateTime(eventString);
-                    tasks.set(num, temp);
+                    event.setAtDateTime(eventString);
+                    tasks.set(num, event);
                     System.out.println("Event set at: " + eventString);
                 }
             } else {
@@ -130,6 +137,11 @@ public class Duke {
                 nextAdd++;
                 System.out.println("Added: " + input + ".");
             }
+        }
+        try {
+            writeToFile(tasks);
+        } catch (IOException e) {
+            //TODO: print some error here
         }
 
     }
@@ -142,6 +154,8 @@ public class Duke {
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        openFile(tasks);
 
         while (isProgramRunning) {
             System.out.print("Enter your command here: ");
@@ -159,6 +173,61 @@ public class Duke {
                 tasksCRUD(input, tasks);
             }
         }
+    }
+
+    private static void openFile(ArrayList<Task> tasks) {
+
+        try {
+            file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String[] splitLine = line.split(" -- ");
+
+                int TASK_TYPE = 0;
+                int TASK_ISDONE = 1;
+                int TASK_DESC = 2;
+                int TASK_ADDN_DESC = 3;
+
+                switch (splitLine[TASK_TYPE]) {
+                case "[E]":
+                    Event event = new Event(splitLine[TASK_DESC]);
+                    event.setPending(splitLine[TASK_ISDONE].equals("true"));
+                    event.setAtDateTime(splitLine[TASK_ADDN_DESC]);
+                    tasks.add(event);
+                    break;
+                case "[D]":
+                    Deadline deadline = new Deadline(splitLine[TASK_DESC]);
+                    deadline.setPending(splitLine[TASK_ISDONE].equals("true"));
+                    deadline.setByDateTime(splitLine[TASK_ADDN_DESC]);
+                    tasks.add(deadline);
+                    break;
+                case "[T]":
+                    Todo todo = new Todo(splitLine[TASK_DESC]);
+                    todo.setPending(splitLine[TASK_ISDONE].equals("true"));
+                    tasks.add(todo);
+                    break;
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found. Starting program with blank file.");
+        }
+
+    }
+
+    private static void writeToFile(ArrayList<Task> tasks) throws IOException {
+
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (Task task : tasks) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(task.getType()).append(" -- ").append(task.isPending()).append(" -- ")
+                    .append(task.getTaskDesc()).append(" -- ").append(task.getAdditionalInfoSave())
+                    .append(System.lineSeparator());
+            fileWriter.write(sb.toString());
+        }
+        fileWriter.close();
+
     }
 
     public static void main(String[] args) {

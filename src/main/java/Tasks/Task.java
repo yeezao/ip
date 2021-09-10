@@ -37,5 +37,9 @@ public abstract class Task {
         return "";
     }
 
+    public String getAdditionalInfoSave() {
+        return "";
+    }
+
 
 }
