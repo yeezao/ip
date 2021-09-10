@@ -25,4 +25,9 @@ public class Deadline extends Task {
     public String getAdditionalInfo() {
         return "(by: " + byDateTime + ")";
     }
+
+    @Override
+    public String getAdditionalInfoSave() {
+        return byDateTime;
+    }
 }

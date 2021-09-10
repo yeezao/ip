@@ -27,4 +27,9 @@ public class Event extends Task {
         return "(at: " + atDateTime + ")";
     }
 
+    @Override
+    public String getAdditionalInfoSave() {
+        return atDateTime;
+    }
+
 }
