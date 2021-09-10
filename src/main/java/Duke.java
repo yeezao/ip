@@ -220,11 +220,10 @@ public class Duke {
 
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(task.getType()).append(" -- ").append(task.isPending()).append(" -- ")
-                    .append(task.getTaskDesc()).append(" -- ").append(task.getAdditionalInfoSave())
-                    .append(System.lineSeparator());
-            fileWriter.write(sb.toString());
+            String sb = task.getType() + " -- " + task.isPending() + " -- " +
+                    task.getTaskDesc() + " -- " + task.getAdditionalInfoSave() +
+                    System.lineSeparator();
+            fileWriter.write(sb);
         }
         fileWriter.close();
 
