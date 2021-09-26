@@ -32,13 +32,13 @@ public class Storage {
                 case "[E]":
                     Event event = new Event(splitLine[TASK_DESC]);
                     event.setPending(splitLine[TASK_ISDONE].equals("true"));
-                    event.setAtDateTime(splitLine[TASK_ADDN_DESC]);
+                    event.setAtDateTime(Parser.parseToDateTime(splitLine[TASK_ADDN_DESC]));
                     tasks.add(event);
                     break;
                 case "[D]":
                     Deadline deadline = new Deadline(splitLine[TASK_DESC]);
                     deadline.setPending(splitLine[TASK_ISDONE].equals("true"));
-                    deadline.setByDateTime(splitLine[TASK_ADDN_DESC]);
+                    deadline.setByDateTime(Parser.parseToDateTime(splitLine[TASK_ADDN_DESC]));
                     tasks.add(deadline);
                     break;
                 case "[T]":
