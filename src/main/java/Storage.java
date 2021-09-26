@@ -14,6 +14,13 @@ import static Standard.StandardStrings.FILE_PATH;
 
 public class Storage {
 
+    /**
+     * Attempts to open the save file with the user's list of tasks. If there is an error opening the file,
+     * the method returns the same empty {@link ArrayList<Task>} that was sent into the method.
+     *
+     * @param tasks empty {@link ArrayList<Task>} to be populated by save file information
+     * @return the populated {@link ArrayList<Task>} (if save file is succesfully read from) or an empty
+     */
     protected static ArrayList<Task> openFile(ArrayList<Task> tasks) {
 
         try {
@@ -57,6 +64,12 @@ public class Storage {
 
     }
 
+    /**
+     * Writes any changes to the save file
+     *
+     * @param tasks {@link ArrayList<Task>} of user's tasks to be read from
+     * @throws IOException - save will be aborted
+     */
     protected static void writeToFile(ArrayList<Task> tasks) throws IOException {
 
         FileWriter fileWriter = new FileWriter(FILE_PATH);

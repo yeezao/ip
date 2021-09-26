@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class Ui {
 
+    /**
+     * Prints out all tasks in the {@link ArrayList<Task>}.
+     *
+     * @param tasks list of tasks
+     */
     protected static void listAllTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("There are no tasks in your list.");
@@ -13,7 +18,13 @@ public class Ui {
             printSingleTask(tasks.get(i), i);
         }
     }
-    
+
+    /**
+     * Prints out a single {@link Task}
+     *
+     * @param task single {@link Task} to be printed
+     * @param i index of task to be printed (from the {@link ArrayList<Task>})
+     */
     protected static void printSingleTask(Task task, int i) {
         StringBuilder sb = new StringBuilder();
         String done = task.isPending() ? "[ ]" : "[X]";
@@ -25,6 +36,9 @@ public class Ui {
         System.out.println(sb);
     }
 
+    /**
+     * Prints the help message when the user enters "help"
+     */
     public static void printHelpMessage() {
 
         System.out.println("-----------------------HELP------------------------");
@@ -39,12 +53,18 @@ public class Ui {
 
     }
 
+    /**
+     * Prints the goodbye message when the user enters "bye"
+     */
     public static void goodBye() {
 
         System.out.println("Exiting the program now. Goodbye!");
 
     }
 
+    /**
+     * Prints the welcome message when the user first enters the program
+     */
     public static void firstGreet() {
 
 
@@ -62,6 +82,9 @@ public class Ui {
         System.out.println("(note: type 'help' anytime for more information)");
     }
 
+    /**
+     * Prints an error message when there is an error parsing the {@link java.time.LocalDateTime} from the user's input
+     */
     public static void dateTimeError() {
         System.out.println("Please check that the date-time is entered in the correct format of dd-mm-yyyy hh:mm");
         System.out.println("The deadline/event date-time has been set to the current time. " +

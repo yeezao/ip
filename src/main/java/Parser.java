@@ -10,6 +10,9 @@ import static Standard.StandardStrings.SOMETHING_WRONG;
 
 public class Parser {
 
+    /**
+     * Reads user commands and determines what operation to execute
+     */
     protected static void userCommands() {
 
         boolean isProgramRunning = true;
@@ -31,25 +34,20 @@ public class Parser {
             } else if (input.equals("list")) {
                 Ui.listAllTasks(tasks);
             } else if (input.contains("find")) {
-                String searchTerm = rejoinSearchString(input.split(" "));
-                TaskList.findTasks(tasks, searchTerm);
+                String[] searchTermSplit = input.split(" ", 2);
+                TaskList.findTasks(tasks, searchTermSplit[1]);
             } else {
                 TaskList.tasksCRUD(input, tasks);
             }
         }
     }
 
-    protected static String rejoinSearchString(String[] inputWords) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < inputWords.length; i++) {
-            sb.append(inputWords[i]);
-            if (i < inputWords.length - 1) {
-                sb.append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
+    /**
+     * Rejoins the string after removing the "deadline/event" command and the index of the task to be modified
+     *
+     * @param inputWords {@link String[]} array of words to be joined
+     * @return rejoined String after removing first 2 words
+     */
     protected static String createRemainingString(String[] inputWords) {
         StringBuilder sb = new StringBuilder();
         for (int i = 2; i < inputWords.length; i++) {
@@ -61,6 +59,12 @@ public class Parser {
         return sb.toString();
     }
 
+    /**
+     * Extracts and parses the index of the task to be modified from the {@link ArrayList<Task>} from the user input string
+     *
+     * @param inputWords {@link String[]} array of words split from the user input
+     * @return index of task to be modified
+     */
     protected static int extractIndexToModify(String[] inputWords) {
 
         int num = -1;
@@ -74,6 +78,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses and converts the deadline/event String into a {@link LocalDateTime} object
+     *
+     * @param dateTimeString String containing date and time information
+     * @return {@link LocalDateTime} object of the input String
+     */
     protected static LocalDateTime parseToDateTime(String dateTimeString) {
         try {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
