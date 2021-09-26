@@ -95,6 +95,26 @@ public class TaskList {
 
     }
 
+    protected static void findTasks(ArrayList<Task> tasks, String searchTerm) {
+        boolean hasFoundTask = false;
+        if (tasks.isEmpty()) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskDesc().contains(searchTerm)) {
+                if (!hasFoundTask) {
+                    System.out.println("We found the following tasks:");
+                    hasFoundTask = true;
+                }
+                Ui.printSingleTask(tasks.get(i), i);
+            }
+        }
+        if (!hasFoundTask) {
+            System.out.println("No tasks matching your search term were found.");
+        }
+    }
+
 
 
 }
