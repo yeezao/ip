@@ -16,7 +16,7 @@ public class TaskList {
     /**
      * CRUD method for modifying the {@link ArrayList<Task>} of user tasks
      *
-     * @param input user-entered input to the CLI
+     * @param input user-entered input to the CLI (unparsed)
      * @param tasks list of user tasks
      */
     public static void tasksCRUD(String input, ArrayList<Task> tasks) {
