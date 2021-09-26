@@ -1,7 +1,5 @@
 import Tasks.Task;
 
-import javax.swing.*;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,10 +30,24 @@ public class Parser {
                 isProgramRunning = false;
             } else if (input.equals("list")) {
                 Ui.listAllTasks(tasks);
+            } else if (input.contains("find")) {
+                String searchTerm = rejoinSearchString(input.split(" "));
+                TaskList.findTasks(tasks, searchTerm);
             } else {
                 TaskList.tasksCRUD(input, tasks);
             }
         }
+    }
+
+    protected static String rejoinSearchString(String[] inputWords) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < inputWords.length; i++) {
+            sb.append(inputWords[i]);
+            if (i < inputWords.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 
     protected static String createRemainingString(String[] inputWords) {

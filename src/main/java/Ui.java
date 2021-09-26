@@ -10,15 +10,19 @@ public class Ui {
             return;
         }
         for (int i = 0; i < tasks.size(); i++) {
-            StringBuilder sb = new StringBuilder();
-            String done = tasks.get(i).isPending() ? "[ ]" : "[X]";
-            sb.append(i + 1).append(": ").append(tasks.get(i).getType())
-                    .append(done).append(" ").append(tasks.get(i).getTaskDesc());
-            if (!tasks.get(i).getAdditionalInfo().isEmpty()) {
-                sb.append(" ").append(tasks.get(i).getAdditionalInfo());
-            }
-            System.out.println(sb);
+            printSingleTask(tasks.get(i), i);
         }
+    }
+    
+    protected static void printSingleTask(Task task, int i) {
+        StringBuilder sb = new StringBuilder();
+        String done = task.isPending() ? "[ ]" : "[X]";
+        sb.append(i + 1).append(": ").append(task.getType())
+                .append(done).append(" ").append(task.getTaskDesc());
+        if (!task.getAdditionalInfo().isEmpty()) {
+            sb.append(" ").append(task.getAdditionalInfo());
+        }
+        System.out.println(sb);
     }
 
     public static void printHelpMessage() {
