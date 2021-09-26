@@ -1,5 +1,10 @@
 import Tasks.Task;
 
+import javax.swing.*;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -55,6 +60,16 @@ public class Parser {
         }
         return num;
 
+    }
+
+    protected static LocalDateTime parseToDateTime(String dateTimeString) {
+        try {
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            return LocalDateTime.parse(dateTimeString, pattern);
+        } catch (DateTimeParseException e) {
+            Ui.dateTimeError();
+            return LocalDateTime.now();
+        }
     }
 
 }

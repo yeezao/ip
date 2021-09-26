@@ -4,6 +4,7 @@ import Tasks.Task;
 import Tasks.Todo;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static Standard.StandardStrings.SOMETHING_WRONG;
@@ -25,18 +26,20 @@ public class TaskList {
                 if (num >= 0) {
                     Deadline deadline = new Deadline(tasks.get(num).getTaskDesc());
                     String deadlineString = Parser.createRemainingString(inputWords);
-                    deadline.setByDateTime(deadlineString);
+                    deadline.setByDateTime(Parser.parseToDateTime(deadlineString));
                     tasks.set(num, deadline);
-                    System.out.println("Deadline set: " + deadlineString);
+                    System.out.println("Deadline set: " +
+                            deadline.getByDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
                 }
             } else if (inputWords[0].equals("event")) {
                 int num = Parser.extractIndexToModify(inputWords);
                 if (num >= 0) {
                     Event event = new Event(tasks.get(num).getTaskDesc());
                     String eventString = Parser.createRemainingString(inputWords);
-                    event.setAtDateTime(eventString);
+                    event.setAtDateTime(Parser.parseToDateTime(eventString));
                     tasks.set(num, event);
-                    System.out.println("Event set at: " + eventString);
+                    System.out.println("Event set at: " +
+                            event.getAtDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
                 }
             } else {
                 Todo todo = new Todo(input);

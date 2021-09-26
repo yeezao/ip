@@ -57,4 +57,11 @@ public class Ui {
         System.out.println("-------------------------------------");
         System.out.println("(note: type 'help' anytime for more information)");
     }
+
+    public static void dateTimeError() {
+        System.out.println("Please check that the date-time is entered in the correct format of dd-mm-yyyy hh:mm");
+        System.out.println("The deadline/event date-time has been set to the current time. " +
+                "Please try this operation again");
+    }
+
 }
