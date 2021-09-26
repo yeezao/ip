@@ -13,6 +13,12 @@ public class TaskList {
 
     private static int nextAdd = 0;
 
+    /**
+     * CRUD method for modifying the {@link ArrayList<Task>} of user tasks
+     *
+     * @param input user-entered input to the CLI
+     * @param tasks list of user tasks
+     */
     public static void tasksCRUD(String input, ArrayList<Task> tasks) {
 
         String[] inputWords = input.split(" ");
@@ -57,6 +63,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks a selected task as done
+     *
+     * @param inputWords user input split into words in a {@link String[]} array - contains the index
+     *                   of the task to be removed
+     * @param tasks list of user tasks
+     */
     private static void makeTaskDone(String[] inputWords, ArrayList<Task> tasks) {
         for (int i = 1; i < inputWords.length; i++) {
             try {
@@ -72,6 +85,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes the selected task from the task list
+     *
+     * @param inputWords user input split into words in a {@link String[]} array - contains the index
+     *                   of the task to be removed
+     * @param tasks list of user tasks
+     */
     private static void deleteTask(String[] inputWords, ArrayList<Task> tasks) {
 
         for (int i = inputWords.length - 1; i > 0; i--) {
@@ -95,6 +115,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Searches through the task list for tasks matching the search term, and passes any matches for printing
+     *
+     * @param tasks list of user tasks
+     * @param searchTerm search term with "find" removed
+     */
     protected static void findTasks(ArrayList<Task> tasks, String searchTerm) {
         boolean hasFoundTask = false;
         if (tasks.isEmpty()) {
