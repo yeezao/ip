@@ -1,3 +1,5 @@
+package UserInteractions;
+
 import Tasks.Task;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ public class Ui {
      *
      * @param tasks list of tasks
      */
-    protected static void listAllTasks(ArrayList<Task> tasks) {
+    public static void listAllTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("There are no tasks in your list.");
             return;

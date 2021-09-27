@@ -1,3 +1,5 @@
+package UserInteractions;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -21,7 +23,7 @@ public class Storage {
      * @param tasks empty {@link ArrayList<Task>} to be populated by save file information
      * @return the populated {@link ArrayList<Task>} (if save file is succesfully read from) or an empty
      */
-    protected static ArrayList<Task> openFile(ArrayList<Task> tasks) {
+    public static ArrayList<Task> openFile(ArrayList<Task> tasks) {
 
         try {
             File file = new File(FILE_PATH);
@@ -37,15 +39,15 @@ public class Storage {
 
                 switch (splitLine[TASK_TYPE]) {
                 case "[E]":
-                    Event event = new Event(splitLine[TASK_DESC]);
+                    String[] eventWords = splitLine[TASK_ADDN_DESC].split(" ");
+                    Event event = new Event(splitLine[TASK_DESC], eventWords);
                     event.setPending(splitLine[TASK_ISDONE].equals("true"));
-                    event.setAtDateTime(Parser.parseToDateTime(splitLine[TASK_ADDN_DESC]));
                     tasks.add(event);
                     break;
                 case "[D]":
-                    Deadline deadline = new Deadline(splitLine[TASK_DESC]);
+                    String[] deadlineWords = splitLine[TASK_ADDN_DESC].split(" ");
+                    Deadline deadline = new Deadline(splitLine[TASK_DESC], deadlineWords);
                     deadline.setPending(splitLine[TASK_ISDONE].equals("true"));
-                    deadline.setByDateTime(Parser.parseToDateTime(splitLine[TASK_ADDN_DESC]));
                     tasks.add(deadline);
                     break;
                 case "[T]":

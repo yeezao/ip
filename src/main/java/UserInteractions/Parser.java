@@ -1,3 +1,5 @@
+package UserInteractions;
+
 import Tasks.Task;
 
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ public class Parser {
     /**
      * Reads user commands and determines what operation to execute
      */
-    protected static void userCommands() {
+    public static void userCommands() {
 
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
@@ -48,7 +50,7 @@ public class Parser {
      * @param inputWords {@link String[]} array of words to be joined
      * @return rejoined String after removing first 2 words
      */
-    protected static String createRemainingString(String[] inputWords) {
+    public static String createRemainingString(String[] inputWords) {
         StringBuilder sb = new StringBuilder();
         for (int i = 2; i < inputWords.length; i++) {
             sb.append(inputWords[i]);
@@ -84,7 +86,7 @@ public class Parser {
      * @param dateTimeString String containing date and time information
      * @return {@link LocalDateTime} object of the input String
      */
-    protected static LocalDateTime parseToDateTime(String dateTimeString) {
+    public static LocalDateTime parseToDateTime(String dateTimeString) {
         try {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             return LocalDateTime.parse(dateTimeString, pattern);
