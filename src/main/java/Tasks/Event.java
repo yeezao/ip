@@ -1,5 +1,7 @@
 package Tasks;
 
+import UserInteractions.Parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,8 +9,10 @@ public class Event extends Task {
 
     private LocalDateTime atDateTime;
 
-    public Event(String description) {
+    public Event(String description, String[] atDateTimeSplit) {
         super(description);
+        String eventString = Parser.createRemainingString(atDateTimeSplit);
+        atDateTime = Parser.parseToDateTime(eventString);
     }
 
     public LocalDateTime getAtDateTime() {

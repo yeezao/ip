@@ -1,3 +1,5 @@
+package UserInteractions;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -24,9 +26,7 @@ public class TaskList {
             if (inputWords[0].equals("deadline")) {
                 int num = Parser.extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Deadline deadline = new Deadline(tasks.get(num).getTaskDesc());
-                    String deadlineString = Parser.createRemainingString(inputWords);
-                    deadline.setByDateTime(Parser.parseToDateTime(deadlineString));
+                    Deadline deadline = new Deadline(tasks.get(num).getTaskDesc(), inputWords);
                     tasks.set(num, deadline);
                     System.out.println("Deadline set: " +
                             deadline.getByDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
@@ -34,7 +34,7 @@ public class TaskList {
             } else if (inputWords[0].equals("event")) {
                 int num = Parser.extractIndexToModify(inputWords);
                 if (num >= 0) {
-                    Event event = new Event(tasks.get(num).getTaskDesc());
+                    Event event = new Event(tasks.get(num).getTaskDesc(), inputWords);
                     String eventString = Parser.createRemainingString(inputWords);
                     event.setAtDateTime(Parser.parseToDateTime(eventString));
                     tasks.set(num, event);

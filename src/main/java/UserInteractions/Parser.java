@@ -1,7 +1,7 @@
+package UserInteractions;
+
 import Tasks.Task;
 
-import javax.swing.*;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,7 +12,7 @@ import static Standard.StandardStrings.SOMETHING_WRONG;
 
 public class Parser {
 
-    protected static void userCommands() {
+    public static void userCommands() {
 
         boolean isProgramRunning = true;
         Scanner scanner = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class Parser {
         }
     }
 
-    protected static String createRemainingString(String[] inputWords) {
+    public static String createRemainingString(String[] inputWords) {
         StringBuilder sb = new StringBuilder();
         for (int i = 2; i < inputWords.length; i++) {
             sb.append(inputWords[i]);
@@ -62,7 +62,7 @@ public class Parser {
 
     }
 
-    protected static LocalDateTime parseToDateTime(String dateTimeString) {
+    public static LocalDateTime parseToDateTime(String dateTimeString) {
         try {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             return LocalDateTime.parse(dateTimeString, pattern);
