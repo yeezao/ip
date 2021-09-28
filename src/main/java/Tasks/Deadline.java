@@ -15,6 +15,11 @@ public class Deadline extends Task {
         byDateTime = Parser.parseToDateTime(deadlineString);
     }
 
+    public Deadline(String description, String byDateTimeSaved) {
+        super(description);
+        byDateTime = Parser.parseToDateTime(byDateTimeSaved);
+    }
+
     public LocalDateTime getByDateTime() {
         return byDateTime;
     }

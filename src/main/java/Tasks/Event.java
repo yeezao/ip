@@ -15,6 +15,11 @@ public class Event extends Task {
         atDateTime = Parser.parseToDateTime(eventString);
     }
 
+    public Event(String description, String atDateTimeSaved) {
+        super(description);
+        atDateTime = Parser.parseToDateTime(atDateTimeSaved);
+    }
+
     public LocalDateTime getAtDateTime() {
         return atDateTime;
     }

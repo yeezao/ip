@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static Standard.StandardStrings.FILE_PATH;
@@ -39,14 +40,12 @@ public class Storage {
 
                 switch (splitLine[TASK_TYPE]) {
                 case "[E]":
-                    String[] eventWords = splitLine[TASK_ADDN_DESC].split(" ");
-                    Event event = new Event(splitLine[TASK_DESC], eventWords);
+                    Event event = new Event(splitLine[TASK_DESC], splitLine[TASK_ADDN_DESC]);
                     event.setPending(splitLine[TASK_ISDONE].equals("true"));
                     tasks.add(event);
                     break;
                 case "[D]":
-                    String[] deadlineWords = splitLine[TASK_ADDN_DESC].split(" ");
-                    Deadline deadline = new Deadline(splitLine[TASK_DESC], deadlineWords);
+                    Deadline deadline = new Deadline(splitLine[TASK_DESC], splitLine[TASK_ADDN_DESC]);
                     deadline.setPending(splitLine[TASK_ISDONE].equals("true"));
                     tasks.add(deadline);
                     break;

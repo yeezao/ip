@@ -1,7 +1,7 @@
-# User Guide
+# Duke Task Manager - User Guide
 
-Duke is a Command-Line Interface (CLI) application for managing tasks. 
-Fast typists will find Duke a faster way of managing various tasks as opposed to GUI applications.
+Duke is a Command-Line Interface (CLI) application for managing tasks.  If you are a fast typist,
+you'll find Duke a faster way of managing various tasks as opposed to GUI applications.
 
 ## Features 
 
@@ -17,6 +17,10 @@ a new file by the same name to save your tasks - **this will overwrite any previ
 To create a new task, simply enter the task name. For example,
 
 `submit assignment`
+
+If successful, you will see:
+
+`Added: submit assignment.`
 
 By default, all new tasks created are of the `todo` type. That means that no date-time information can
 be tagged to the task. To add date-time information to a task, see [Change task to deadline or event type](#change-task-to-deadline-or-event-type----deadline---event).
@@ -46,6 +50,10 @@ Once you know the task number, type
 
 `-done <task-number>`
 
+If successful, you will see
+
+`Congrats! You've completed this task: [X] <task-name>`
+
 For efficiency, you can chain multiple tasks together to be marked as done. For example,
 
 `-done 1 2 3`
@@ -65,6 +73,12 @@ To change to a `deadline` type, enter
 Similarly, to change to a `event` type, enter
 
 `-event <task-number> <date-time>`, where the format of `date-time` must be `dd-MM-yyyy HH:mm`
+
+An acceptable date-time input would be `29-09-2021 11:00`
+
+Once successful, you will see
+
+`Deadline set: 29 Sep 2021 11:00` or `Event set: 29 Sep 2021 11:00`
 
 **IMPORTANT:** Once a task has been changed away from a `todo` type, it cannot be changed back. However,
 you can still change between `deadline` and `event` types.
@@ -90,6 +104,10 @@ you know the contents of the task description (see [Find tasks](#find-tasks----f
 Once you know the task number, type
 
 `-delete <task-number>`
+
+Once successful, you will see
+
+`Task <task-number>: <task-name> has been deleted`
 
 For efficiency, you can chain multiple tasks together to be marked as done. For example,
 
