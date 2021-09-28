@@ -7,7 +7,7 @@ you'll find Duke a faster way of managing various tasks as opposed to GUI applic
 
 - Install Java 11 on your computer.
 - Download the latest version of the program from [here]().
-- Open a command line/terminal session. Navigate to the directory where the program resides, and enter `java -jar duke.jar`. You can also double-click on the package to start the program in a new command line/terminal session.
+- Open a command line/terminal session. Navigate to the directory where the program resides, and enter `java -jar duke.jar`.
 
 ## Features 
 
