@@ -29,7 +29,7 @@ public class TaskList {
         } else if (inputWords[0].equals("delete")) {
             deleteTask(inputWords, tasks);
         } else {
-            if (inputWords[0].equals("deadline")) {
+            if (inputWords[0].equals("-deadline")) {
                 int num = Parser.extractIndexToModify(inputWords);
                 if (num >= 0) {
                     Deadline deadline = new Deadline(tasks.get(num).getTaskDesc(), inputWords);
@@ -37,7 +37,7 @@ public class TaskList {
                     System.out.println("Deadline set: " +
                             deadline.getByDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
                 }
-            } else if (inputWords[0].equals("event")) {
+            } else if (inputWords[0].equals("-event")) {
                 int num = Parser.extractIndexToModify(inputWords);
                 if (num >= 0) {
                     Event event = new Event(tasks.get(num).getTaskDesc(), inputWords);

@@ -29,13 +29,13 @@ public class Parser {
             if (input.isEmpty()) {
                 System.out.println(SOMETHING_WRONG
                         + "Your input is empty - please enter a command and additional options.");
-            } else if (input.equals("help")) {
+            } else if (input.equals("-help")) {
                 Ui.printHelpMessage();
-            } else if (input.equals("bye")) {
+            } else if (input.equals("-bye")) {
                 isProgramRunning = false;
-            } else if (input.equals("list")) {
+            } else if (input.equals("-list")) {
                 Ui.listAllTasks(tasks);
-            } else if (input.contains("find")) {
+            } else if (input.contains("-find")) {
                 String[] searchTermSplit = input.split(" ", 2);
                 TaskList.findTasks(tasks, searchTermSplit[1]);
             } else {

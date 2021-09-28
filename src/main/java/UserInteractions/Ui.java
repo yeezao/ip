@@ -81,7 +81,7 @@ public class Ui {
         System.out.println("Hello! I'm Duke!");
         System.out.println("What can I do for you?");
         System.out.println("-------------------------------------");
-        System.out.println("(note: type 'help' anytime for more information)");
+        System.out.println("(note: type '-help' anytime for more information)");
     }
 
     /**
